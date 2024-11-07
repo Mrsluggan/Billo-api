@@ -5,6 +5,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.idata.eboks.models.Dispatch;
 import com.idata.eboks.models.DispatchResponse;
+import com.idata.eboks.repository.DispatchRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -13,8 +14,7 @@ import lombok.AllArgsConstructor;
 public class DispatchService {
 
     private final RestTemplate restTemplate;
-
-
+    private final DispatchRepository dispatchRepository;
 
     public DispatchResponse createSingleDispatch(Dispatch dispatch) {
 
