@@ -1,15 +1,26 @@
 package com.idata.eboks.Services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.idata.eboks.models.Dispatch;
+import com.idata.eboks.models.DispatchResponse;
+
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class DispatchService {
 
-    public Dispatch createSingleDispatch(Dispatch dispatch) {
-        // todo
-        return dispatch;
+    private final RestTemplate restTemplate;
+
+
+
+    public DispatchResponse createSingleDispatch(Dispatch dispatch) {
+
+        DispatchResponse dispatchResponse = restTemplate.postForObject(null, dispatch, DispatchResponse.class);
+
+        return dispatchResponse;
     }
 
     public Dispatch getDispatchStatus(String messageId) {
@@ -19,8 +30,8 @@ public class DispatchService {
     }
 
     public void recallDispatch(String messageId) {
-                // todo
+        // todo
 
     }
-    
+
 }

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.idata.eboks.Services.DispatchService;
 import com.idata.eboks.models.Dispatch;
+import com.idata.eboks.models.DispatchResponse;
 
 @RestController
 @RequestMapping("/api/dispatch")
@@ -15,7 +16,7 @@ public class DispatchController {
     private DispatchService dispatchService;
 
     @PostMapping("/create")
-    public Dispatch createDispatch(@RequestBody Dispatch dispatch) {
+    public DispatchResponse createDispatch(@RequestBody Dispatch dispatch) {
         return dispatchService.createSingleDispatch(dispatch);
     }
 
