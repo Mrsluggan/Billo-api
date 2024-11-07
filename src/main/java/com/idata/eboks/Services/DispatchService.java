@@ -34,4 +34,9 @@ public class DispatchService {
 
     }
 
+    public Dispatch updateDispatch(String messageId) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateDispatch'");
+    }
+
 }

@@ -20,10 +20,17 @@ public class DispatchController {
         return dispatchService.createSingleDispatch(dispatch);
     }
 
+    @PutMapping("/{messageId}/update")
+    public Dispatch updateDispatch(@PathVariable String messageId) {
+        return dispatchService.updateDispatch(messageId);
+    }
+
     @GetMapping("/{messageId}/status")
     public Dispatch getDispatchStatus(@PathVariable String messageId) {
         return dispatchService.getDispatchStatus(messageId);
     }
+
+
 
     @DeleteMapping("/{messageId}/recall")
     public void recallDispatch(@PathVariable String messageId) {
