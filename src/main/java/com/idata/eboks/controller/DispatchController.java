@@ -1,6 +1,5 @@
 package com.idata.eboks.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,20 +19,22 @@ public class DispatchController {
         return dispatchService.createSingleDispatch(dispatch);
     }
 
-    @PutMapping("/{messageId}/update")
-    public Dispatch updateDispatch(@PathVariable String messageId) {
-        return dispatchService.updateDispatch(messageId);
-    }
-
     @GetMapping("/{messageId}/status")
     public Dispatch getDispatchStatus(@PathVariable String messageId) {
         return dispatchService.getDispatchStatus(messageId);
     }
 
-
+    @PutMapping("/{messageId}/update")
+    public Dispatch updateDispatch(@PathVariable String messageId) {
+        return dispatchService.updateDispatch(messageId);
+    }
 
     @DeleteMapping("/{messageId}/recall")
     public void recallDispatch(@PathVariable String messageId) {
         dispatchService.recallDispatch(messageId);
     }
+
+    // ---------------------------------------------------------
+
+
 }
