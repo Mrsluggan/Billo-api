@@ -20,7 +20,7 @@ public class UserMatchController {
     private UserMatchService userMatchService;
 
 
-    // Hämtar alla mottagare för tenants
+    // Kollar om mottagare finns för tenants
     @PostMapping("/{tenantKey}/usermatch")
     public ResponseEntity<UserMatch> matchUsers(@PathVariable String tenantKey, @RequestBody UserMatch userMatchRequest) {
         UserMatch response = userMatchService.matchUsers(userMatchRequest);
