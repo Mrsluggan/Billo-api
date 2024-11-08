@@ -26,4 +26,18 @@ public class UserMatchController {
         UserMatch response = userMatchService.matchUsers(userMatchRequest);
         return ResponseEntity.ok(response);
     }
+    @PostMapping("/{tenantKey}/content")
+    public ResponseEntity<UserMatch> sendcontent(@PathVariable String tenantKey) {
+
+        // todo, lägg till content_user, sedan skapa funktion för skapa content
+
+        return ResponseEntity.ok(null);
+    }
+
+
+
+
+
+
+
 }
