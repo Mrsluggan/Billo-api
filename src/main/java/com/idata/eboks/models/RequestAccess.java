@@ -1,22 +1,16 @@
 package com.idata.eboks.models;
 
+import lombok.Data;
+
+@Data
 public class RequestAccess {
-    private String type;
-    private RequestAccessProperties properties;
+    private String requestKey; // Read-only
+    private String createdAt; // Read-only
+    private String createdBy; // Read-only
+    private String status; // Read-only
+    private String clientId;
+    private String clientName; // Read-only
+    private String tenantName; // Read-only
+    private String tenantKey; // Read-only
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String value) {
-        this.type = value;
-    }
-
-    public RequestAccessProperties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(RequestAccessProperties value) {
-        this.properties = value;
-    }
 }
