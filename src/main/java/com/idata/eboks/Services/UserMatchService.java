@@ -33,7 +33,7 @@ public class UserMatchService {
                 HttpMethod.PUT, null, new ParameterizedTypeReference<Tenant>() {
                 }).getBody();
         
-        return null;
+        return tenant;
     }
 
 }
