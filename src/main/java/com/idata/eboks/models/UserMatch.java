@@ -8,4 +8,11 @@ import lombok.Data;
 public class UserMatch {
     private List<String> ssns; // Required
 
+    public UserMatch() {
+    }
+
+    public UserMatch(List<String> ssns) {
+        this.ssns = ssns;
+    }
+
 }
