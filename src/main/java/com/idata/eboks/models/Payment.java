@@ -1,40 +1,16 @@
 package com.idata.eboks.models;
 
+import lombok.Data;
+
+@Data
 public class Payment {
-    private String[] required;
-    private String type;
-    private PaymentProperties properties;
-    private boolean additionalProperties;
-
-    public String[] getRequired() {
-        return required;
-    }
-
-    public void setRequired(String[] value) {
-        this.required = value;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String value) {
-        this.type = value;
-    }
-
-    public PaymentProperties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(PaymentProperties value) {
-        this.properties = value;
-    }
-
-    public boolean getAdditionalProperties() {
-        return additionalProperties;
-    }
-
-    public void setAdditionalProperties(boolean value) {
-        this.additionalProperties = value;
-    }
+    private boolean payable; // Required
+    private String currency; // Required
+    private String dueDate; // Required
+    private String totalOwed; // Required
+    private String type; // Required
+    private String method; // Required
+    private String account; // Required
+    private String reference; // Required
+    private String minAmount;
 }

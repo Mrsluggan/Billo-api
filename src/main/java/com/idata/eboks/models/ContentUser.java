@@ -1,31 +1,44 @@
 package com.idata.eboks.models;
 
+import java.util.List;
+
+import lombok.Data;
+
+@Data
 public class ContentUser {
+    private String ssn; // Required
+    private String subject; // Required
+    private String generatedAt;
     private String type;
-    private String[] required;
-    private ContentUserProperties properties;
+    private boolean retain;
+    private Integer retentionDays;
+    private String email;
+    private List<File> files; // Required
+    private Context context;
 
-    public String getType() {
-        return type;
+    @Data
+    public static class Context {
+        private Invoice invoice;
+        private List<Booking> booking;
+
+        @Data
+        public static class Invoice {
+            private Payment payment;
+            private String invoiceReference;
+
+        }
+
+        @Data
+        public static class Booking {
+            private String title;
+            private String description;
+            private String location;
+            private String infoUrl;
+            private String startTime;
+            private String endTime;
+
+        }
+
     }
 
-    public void setType(String value) {
-        this.type = value;
-    }
-
-    public String[] getRequired() {
-        return required;
-    }
-
-    public void setRequired(String[] value) {
-        this.required = value;
-    }
-
-    public ContentUserProperties getProperties() {
-        return properties;
-    }
-
-    public void setProperties(ContentUserProperties value) {
-        this.properties = value;
-    }
 }
