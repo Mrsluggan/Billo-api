@@ -12,6 +12,11 @@ import com.idata.eboks.models.UserMatch;
 @RestController
 @RequestMapping("/v1/tenant")
 public class UserMatchController {
+    @Value("${billo.api.client.id}")
+    private String clientId;
+
+    @Value("${billo.api.client.secret}")
+    private String clientSecret;
 
     @Value("${billo.api.client.tenantKey}")
     private String tenantKey;
@@ -35,7 +40,13 @@ public class UserMatchController {
     }
 
 
+    @GetMapping("/test")
+    public ResponseEntity<String> testMap() {
+        System.out.println(clientId);
+        System.out.println(clientSecret);
 
+        return ResponseEntity.ok("Det funkar!");
+    }
 
 
 
