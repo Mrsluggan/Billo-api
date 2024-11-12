@@ -26,10 +26,11 @@ public class UserMatchController {
     @Autowired
     private UserMatchService userMatchService;
 
-
-
     // Kollar om mottagare finns för tenants
-
+    @GetMapping("/{tenantKey}/users")
+    public ResponseEntity<List<UserMatch>> userMatch(@PathVariable String tenantKey) {
+        return ResponseEntity.ok(userMatchService.matchUsers(tenantKey));
+    }
 
     @PostMapping("/{tenantKey}/content")
     public ResponseEntity<UserMatch> sendcontent(@PathVariable String tenantKey) {
@@ -40,9 +41,10 @@ public class UserMatchController {
     }
 
 
-    @GetMapping("/test")
-    public ResponseEntity<Tenant> testMap() {
-        return ResponseEntity.ok(userMatchService.updateTenantName("Bosse"));
+    //Ändrar namn på tenant
+    @GetMapping("{tenantKey}/name")
+    public ResponseEntity<Tenant> updateTenantName(@PathVariable String tenantKey) {
+        return ResponseEntity.ok(userMatchService.updateTenantName(tenantKey, "Bosse"));
     }
 
 }

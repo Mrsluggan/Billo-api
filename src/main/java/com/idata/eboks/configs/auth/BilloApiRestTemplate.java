@@ -19,10 +19,10 @@ public class BilloApiRestTemplate {
         RestTemplate restTemplate = new RestTemplate();
     
         restTemplate.getInterceptors().add((request, body, execution) -> {
-            String apiKey = billoAuth.getAccessToken();
-            if (apiKey != null) {
-                System.out.println(apiKey);
-                request.getHeaders().add("Authorization", "Bearer " + apiKey);
+            String token = billoAuth.getAccessToken();
+            if (token != null) {
+                System.out.println(token);
+                request.getHeaders().add("Authorization", "Bearer " + token);
             } else {
                 System.out.println("API key is null, unable to add authorization header");
             }
