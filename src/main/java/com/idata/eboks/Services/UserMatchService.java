@@ -19,20 +19,22 @@ public class UserMatchService {
     @Qualifier("billoApiRestTemplateBean")
     private RestTemplate billoApiRestTemplateBean;
 
-    public List<UserMatch> matchUsers() {
+    public List<UserMatch> matchUsers(String tenantKey) {
         List<UserMatch> chatResponse = billoApiRestTemplateBean.exchange(
-                "https://sandbox-sender-api.billo.life/v1/tenant/50746fd6-158b-4583-bb7f-655e5d98a5ed/user",
-                HttpMethod.GET, null, new ParameterizedTypeReference<List<UserMatch>>() {
+                "https://sandbox-sender-api.billo.life/v1/tenant/" + tenantKey + "/user",
+                HttpMethod.GET, null , new ParameterizedTypeReference<List<UserMatch>>() {
                 }).getBody();
+
+                System.out.println(chatResponse);
         return chatResponse;
     }
 
-    public Tenant updateTenantName(String newName) {
+    public Tenant updateTenantName(String tenantKey,String newName) {
         Tenant tenant = billoApiRestTemplateBean.exchange(
-                "https://sandbox-sender-api.billo.life/v1/tenant/50746fd6-158b-4583-bb7f-655e5d98a5ed/name",
-                HttpMethod.PUT, null, new ParameterizedTypeReference<Tenant>() {
+            "https://sandbox-sender-api.billo.life/v1/tenant/" + tenantKey + "/name",
+            HttpMethod.PUT, null, new ParameterizedTypeReference<Tenant>() {
                 }).getBody();
-        
+
         return tenant;
     }
 

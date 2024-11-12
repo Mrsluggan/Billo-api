@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 public class TokenService {
@@ -28,8 +27,7 @@ public class TokenService {
                 .bodyToMono(String.class)
                 .block();
 
-        System.out.println("hallå!");
-        System.out.println(token);
+
         String[] parts = token.split("\"");
         return parts[3];
     }
