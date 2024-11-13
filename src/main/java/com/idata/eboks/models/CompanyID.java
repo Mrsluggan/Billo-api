@@ -7,7 +7,7 @@ public class CompanyID {
     private String name; // Required
     private String orgnr; // Required
 
-    // Getters and setters
+  
     public String getOrgnr() {
         return orgnr;
     }
