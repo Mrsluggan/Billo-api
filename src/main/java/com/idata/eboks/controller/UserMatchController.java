@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.idata.eboks.Services.UserMatchService;
 import com.idata.eboks.models.ContentUser;
 import com.idata.eboks.models.Tenant;
@@ -35,9 +34,13 @@ public class UserMatchController {
     }
 
     @PostMapping("/{tenantKey}/content")
-    public ResponseEntity<ContentUser> sendcontent(@PathVariable String tenantKey,
-            @RequestBody ContentUser contentUser) {
-        System.out.println("nu hände det något");
+    public ResponseEntity<ContentUser> sendcontent(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
+
+        System.out.println("--------------  här kommer Meddelandet ------------");
+    
+        System.out.println(contentUser);
+        
+        System.out.println("--------------  ------------------ ------------");
 
         return ResponseEntity.ok(userMatchService.sendContentToUser(tenantKey, contentUser));
     }

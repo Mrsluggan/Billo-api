@@ -22,26 +22,28 @@ public class ContentUser {
 
     private String ssn; // Required
     private String subject; // Required
-    private String generatedAt;
-
-    @Column(name = "user_type") 
-    private String type; 
+    private String generated_at;
+    private File file;
+    @Column(name = "user_type")
+    private String type;
 
     private boolean retain;
-    private Integer retentionDays;
+    private Integer retention_days;
     private String email;
 
     @ElementCollection
-    private List<FileDetail> files;
+    private List<File> files;
 
     @Embedded
     @AttributeOverrides({
-        @AttributeOverride(name = "type", column = @Column(name = "context_type"))
+            @AttributeOverride(name = "type", column = @Column(name = "context_type"))
     })
     private Context context;
 
     @Data
     @Embeddable
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Context {
         @Embedded
         private Invoice invoice;
@@ -51,6 +53,8 @@ public class ContentUser {
 
         @Data
         @Embeddable
+        @NoArgsConstructor
+        @AllArgsConstructor
         public static class Invoice {
             @Embedded
             private Payment payment;
@@ -60,6 +64,8 @@ public class ContentUser {
 
         @Data
         @Embeddable
+        @NoArgsConstructor
+        @AllArgsConstructor
         public static class Booking {
             private String title;
             private String description;
@@ -71,6 +77,8 @@ public class ContentUser {
 
         @Data
         @Embeddable
+        @NoArgsConstructor
+        @AllArgsConstructor
         public static class Payment {
             private String account;
             private String currency;
@@ -84,29 +92,5 @@ public class ContentUser {
         }
     }
 
-    @Data
-    @Embeddable
-    public static class FileDetail { 
-        @Column(name = "file_content_type") 
-        private String contentType;
-
-        private String data;
-        private String name;
-
-        @Embedded
-        @AttributeOverrides({
-            @AttributeOverride(name = "contentType", column = @Column(name = "responsive_content_type")),
-            @AttributeOverride(name = "data", column = @Column(name = "responsive_data")),
-            @AttributeOverride(name = "name", column = @Column(name = "responsive_name"))
-        })
-        private ResponsivePart responsivePart;
-
-        @Data
-        @Embeddable
-        public static class ResponsivePart {
-            private String contentType;
-            private String data;
-            private String name;
-        }
-    }
+  
 }

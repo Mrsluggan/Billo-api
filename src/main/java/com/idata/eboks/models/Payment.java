@@ -1,8 +1,12 @@
 package com.idata.eboks.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Payment {
     private boolean payable; // Required
     private String currency; // Required
