@@ -13,12 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-import java.lang.reflect.Field;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.idata.eboks.models.ContentUser;
 import com.idata.eboks.models.Tenant;
+import com.idata.eboks.models.TenantKey;
 import com.idata.eboks.models.UserMatch;
 
 @Service
@@ -113,16 +111,18 @@ public class UserMatchService {
     }
 
     //Listar alla tenants.
-    public List<Tenant> listTenants(String orgnr) {
+    public List<List<TenantKey>> listTenants(String orgnr) {
         if (orgnr != null && !orgnr.isEmpty()) {
             url += "?orgnr=" + orgnr;
         }
-        List<Tenant> tenants = billoApiRestTemplateBean.exchange(
+        ResponseEntity<List<List<TenantKey>>> response = billoApiRestTemplateBean.exchange(
                 url,
                 HttpMethod.GET,
                 null,
-                new ParameterizedTypeReference<List<Tenant>>() {
-                }).getBody();
+                new ParameterizedTypeReference<List<List<TenantKey>>>() {}
+        );
+                
+        List<List<TenantKey>> tenants = response.getBody();
  
         System.out.println(tenants);
         return tenants;

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import com.idata.eboks.Services.UserMatchService;
 import com.idata.eboks.models.ContentUser;
 import com.idata.eboks.models.Tenant;
+import com.idata.eboks.models.TenantKey;
 import com.idata.eboks.models.UserMatch;
 
 @RestController
@@ -56,8 +57,9 @@ public class UserMatchController {
 
     // Listar alla tenants 
     @GetMapping 
-    public ResponseEntity<List<Tenant>> listTenants(@RequestParam(required = false) String orgnr) { 
-        List<Tenant> tenants = userMatchService.listTenants(orgnr); 
+    public ResponseEntity<List<List<TenantKey>>> listTenants(@RequestParam(required = false) String orgnr) { 
+        System.out.println("listed tenant: " + orgnr);
+        List<List<TenantKey>> tenants = userMatchService.listTenants(orgnr); 
         return ResponseEntity.ok(tenants);
     }
   
