@@ -59,7 +59,7 @@ public class ContentUser {
             @Embedded
             private Payment payment;
 
-            private String invoiceReference;
+            private String invoice_reference;
         }
 
         @Data
@@ -70,9 +70,9 @@ public class ContentUser {
             private String title;
             private String description;
             private String location;
-            private String infoUrl;
-            private String startTime;
-            private String endTime;
+            private String info_url;
+            private String start_time;
+            private String end_time;
         }
 
         @Data
@@ -82,15 +82,14 @@ public class ContentUser {
         public static class Payment {
             private String account;
             private String currency;
-            private String dueDate;
+            private String due_date;
             private String method;
             private Boolean payable;
             private String reference;
-            private String totalOwed;
+            private String total_owed;
             private String type;
-            private String minAmount;
+            private String min_amount;
         }
     }
 
-  
 }
