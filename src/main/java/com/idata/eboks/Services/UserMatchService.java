@@ -10,8 +10,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+import java.lang.reflect.Field;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.idata.eboks.models.ContentUser;
 import com.idata.eboks.models.Tenant;
 import com.idata.eboks.models.UserMatch;
 
@@ -26,12 +31,39 @@ public class UserMatchService {
 
     public List<UserMatch> matchUsers(String tenantKey) {
         List<UserMatch> chatResponse = billoApiRestTemplateBean.exchange(
-                CreateSlug(tenantKey, "/user"),
+                createSlug(tenantKey, "/user"),
                 HttpMethod.GET, null, new ParameterizedTypeReference<List<UserMatch>>() {
                 }).getBody();
 
         System.out.println(chatResponse);
         return chatResponse;
+    }
+
+    public ContentUser sendContentToUser(String tenantKey, ContentUser contentUser) {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<ContentUser> entity = new HttpEntity<>(contentUser, headers);
+            System.out.println("\n");
+            System.out.println(entity);
+            System.out.println("\n");
+            ContentUser newMessage = billoApiRestTemplateBean.exchange(
+                    createSlug(tenantKey, "/content"),
+                    HttpMethod.POST,
+                    entity,
+                    new ParameterizedTypeReference<ContentUser>() {
+                    }).getBody();
+
+            return newMessage;
+
+        } catch (HttpClientErrorException e) {
+            System.out.println("Error response: " + e.getResponseBodyAsString());
+            throw e; // rethrow the exception to propagate it further
+        } catch (Exception e) {
+            // Handle any other exceptions
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Error processing contentUser", e);
+        }
     }
 
     public Tenant updateTenantName(String tenantKey, String newName) {
@@ -43,7 +75,7 @@ public class UserMatchService {
         HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
 
         Tenant tenant = billoApiRestTemplateBean.exchange(
-                CreateSlug(tenantKey, "/name"),
+                createSlug(tenantKey, "/name"),
                 HttpMethod.PUT,
                 entity,
                 new ParameterizedTypeReference<Tenant>() {
@@ -52,7 +84,8 @@ public class UserMatchService {
         return tenant;
     }
 
-    public String CreateSlug(String tenantKey, String inputPath) {
+    public String createSlug(String tenantKey, String inputPath) {
         return BASE_URL + tenantKey + inputPath;
     }
+
 }
