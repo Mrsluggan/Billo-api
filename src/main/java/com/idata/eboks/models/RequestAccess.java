@@ -1,8 +1,12 @@
 package com.idata.eboks.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class RequestAccess {
     private String requestKey; // Read-only
     private String createdAt; // Read-only

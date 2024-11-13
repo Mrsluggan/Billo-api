@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.idata.eboks.Services.UserMatchService;
+import com.idata.eboks.models.ContentUser;
 import com.idata.eboks.models.Tenant;
 import com.idata.eboks.models.UserMatch;
 
@@ -34,9 +35,15 @@ public class UserMatchController {
     }
     
     @PostMapping("/{tenantKey}/content")
-    public ResponseEntity<UserMatch> sendcontent(@PathVariable String tenantKey) {
-        // todo, lägg till content_user, sedan skapa funktion för skapa content
-        return ResponseEntity.ok(null);
+    public ResponseEntity<ContentUser> sendcontent(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
+
+        System.out.println("--------------  här kommer Meddelandet ------------");
+    
+        System.out.println(contentUser);
+        
+        System.out.println("--------------  ------------------ ------------");
+
+        return ResponseEntity.ok(userMatchService.sendContentToUser(tenantKey, contentUser));
     }
     
     // Skapar en ny tenant 
@@ -51,10 +58,15 @@ public class UserMatchController {
     @GetMapping 
     public ResponseEntity<List<Tenant>> listTenants(@RequestParam(required = false) String orgnr) { 
         List<Tenant> tenants = userMatchService.listTenants(orgnr); 
-        return ResponseEntity.ok(tenants); 
+        return ResponseEntity.ok(tenants);
+    }
+  
+    @GetMapping("{tenantKey}/test")
+    public ResponseEntity<ContentUser> test(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
+        return ResponseEntity.ok(contentUser);
     }
 
-    //Ändrar namn på tenant
+    // Ändrar namn på tenant
     @GetMapping("{tenantKey}/name")
     public ResponseEntity<Tenant> updateTenantName(@PathVariable String tenantKey) {
         return ResponseEntity.ok(userMatchService.updateTenantName(tenantKey, "Bosse"));
