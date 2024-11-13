@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.idata.eboks.Services.UserMatchService;
+import com.idata.eboks.models.ContentUser;
 import com.idata.eboks.models.Tenant;
 import com.idata.eboks.models.UserMatch;
 
@@ -33,15 +35,19 @@ public class UserMatchController {
     }
 
     @PostMapping("/{tenantKey}/content")
-    public ResponseEntity<UserMatch> sendcontent(@PathVariable String tenantKey) {
+    public ResponseEntity<ContentUser> sendcontent(@PathVariable String tenantKey,
+            @RequestBody ContentUser contentUser) {
+        System.out.println("nu hände det något");
 
-        // todo, lägg till content_user, sedan skapa funktion för skapa content
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(userMatchService.sendContentToUser(tenantKey, contentUser));
     }
 
+    @GetMapping("{tenantKey}/test")
+    public ResponseEntity<ContentUser> test(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
+        return ResponseEntity.ok(contentUser);
+    }
 
-    //Ändrar namn på tenant
+    // Ändrar namn på tenant
     @GetMapping("{tenantKey}/name")
     public ResponseEntity<Tenant> updateTenantName(@PathVariable String tenantKey) {
         return ResponseEntity.ok(userMatchService.updateTenantName(tenantKey, "Bosse"));
