@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserMatch {
-    private List<String> ssns; // Required
+    private List<EndUser> ssns; // Required
 
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.idata.eboks.models.ContentUser;
+import com.idata.eboks.models.EndUser;
 import com.idata.eboks.models.Tenant;
 import com.idata.eboks.models.TenantKey;
 import com.idata.eboks.models.UserMatch;
@@ -33,16 +34,16 @@ public class UserMatchService {
         return BASE_URL + tenantKey + inputPath;
     }
 
-    public List<UserMatch> matchUsers(String tenantKey) {
-        List<UserMatch> chatResponse = billoApiRestTemplateBean.exchange(
+    public UserMatch matchUsers(String tenantKey) {
+        List<EndUser> chatResponse = billoApiRestTemplateBean.exchange(
                 createSlug(tenantKey, "/user"),
-                HttpMethod.GET, 
-                null, 
-                new ParameterizedTypeReference<List<UserMatch>>() {
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<EndUser>>() {
                 }).getBody();
 
-        System.out.println(chatResponse);
-        return chatResponse;
+        UserMatch userMatch = new UserMatch(chatResponse);
+        return userMatch;
     }
 
     public ContentUser sendContentToUser(String tenantKey, ContentUser contentUser) {
@@ -91,27 +92,28 @@ public class UserMatchService {
         return tenant;
     }
 
-    //Skapar en ny tenant. 
-    public Tenant createTenant (Tenant tenant) {
+    // Skapar en ny tenant.
+    public Tenant createTenant(Tenant tenant) {
         // Ställ in headers för begäran
-        HttpHeaders headers = new HttpHeaders(); 
+        HttpHeaders headers = new HttpHeaders();
         headers.set("Content-Type", "application/json");
-         
-        // Skapa en HttpEntity med tenant-objektet och headers 
+
+        // Skapa en HttpEntity med tenant-objektet och headers
         HttpEntity<Tenant> request = new HttpEntity<>(tenant, headers);
-        
+
         // Skicka POST-begäran för att skapa en ny tenant
         ResponseEntity<Tenant> response = billoApiRestTemplateBean.postForEntity(
-            url,
-            request,
-            Tenant.class);
+                url,
+                request,
+                Tenant.class);
 
         System.out.println("POST to create new tenant: " + response.getBody());
         return response.getBody();
     }
 
-    //Listar alla tenants.
+
     public List<List<TenantKey>> listTenants(String orgnr) {
+
         if (orgnr != null && !orgnr.isEmpty()) {
             url += "?orgnr=" + orgnr;
         }
@@ -119,11 +121,13 @@ public class UserMatchService {
                 url,
                 HttpMethod.GET,
                 null,
+
                 new ParameterizedTypeReference<List<List<TenantKey>>>() {}
         );
                 
         List<List<TenantKey>> tenants = response.getBody();
  
+
         System.out.println(tenants);
         return tenants;
     }

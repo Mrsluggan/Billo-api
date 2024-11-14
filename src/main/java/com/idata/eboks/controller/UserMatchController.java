@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import com.idata.eboks.Services.UserMatchService;
 import com.idata.eboks.models.ContentUser;
+import com.idata.eboks.models.EndUser;
 import com.idata.eboks.models.Tenant;
 import com.idata.eboks.models.TenantKey;
 import com.idata.eboks.models.UserMatch;
@@ -31,7 +32,7 @@ public class UserMatchController {
     
     // Kollar om mottagare finns för tenants
     @GetMapping("/{tenantKey}/users")
-    public ResponseEntity<List<UserMatch>> userMatch(@PathVariable String tenantKey) {
+    public ResponseEntity<UserMatch> userMatch(@PathVariable String tenantKey) {
         return ResponseEntity.ok(userMatchService.matchUsers(tenantKey));
     }
     
