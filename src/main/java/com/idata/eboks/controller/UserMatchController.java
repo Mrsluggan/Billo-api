@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import com.idata.eboks.Services.UserMatchService;
 import com.idata.eboks.models.ContentUser;
-import com.idata.eboks.models.EndUser;
 import com.idata.eboks.models.Tenant;
 import com.idata.eboks.models.TenantKey;
 import com.idata.eboks.models.UserMatch;
