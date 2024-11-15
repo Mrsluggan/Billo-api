@@ -17,7 +17,7 @@ import com.idata.eboks.models.CompanyID;
 
 @RestController
 @RequestMapping("/v1/tenant")
-public class TenantController {
+public class CompanyController {
 
     private static final Map<String, List<CompanyID>> tenantCompanyMap = new HashMap<>();
 
