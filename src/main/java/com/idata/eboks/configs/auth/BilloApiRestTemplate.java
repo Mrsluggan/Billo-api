@@ -5,14 +5,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import com.idata.eboks.Services.TokenService;
+
 @Configuration
 public class BilloApiRestTemplate {
 
     @Autowired
     private TokenService billoAuth;
 
-
-
+    
     @Bean(name = "billoApiRestTemplateBean")
     @Qualifier("billoApiRestTemplateBean")
     public RestTemplate billoApiRestTemplate() {

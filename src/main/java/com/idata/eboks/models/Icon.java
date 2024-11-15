@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Icon {
+    private File file;
     private String name; // Required
     private String data; // Required
     private String contentType; // Required

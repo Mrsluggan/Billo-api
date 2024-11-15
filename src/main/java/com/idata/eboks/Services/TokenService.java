@@ -1,4 +1,4 @@
-package com.idata.eboks.configs.auth;
+package com.idata.eboks.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -6,13 +6,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-public class TokenService {
+public class TokenService extends BaseService {
     @Value("${billo.api.client.id}")
     private String clientId;
 
     @Value("${billo.api.client.secret}")
     private String clientSecret;
 
+    
     @Autowired
     private WebClient.Builder webClientBuilder;
 
