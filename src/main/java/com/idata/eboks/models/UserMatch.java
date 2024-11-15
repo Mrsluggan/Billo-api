@@ -1,6 +1,7 @@
 package com.idata.eboks.models;
 
 import java.util.List;
+import java.util.Map;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserMatch {
-    private List<EndUser> ssns; // Required
-
-
+    private List<String> ssns; // Required
 }

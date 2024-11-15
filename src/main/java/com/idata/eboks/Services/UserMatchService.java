@@ -1,6 +1,9 @@
 package com.idata.eboks.Services;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +37,7 @@ public class UserMatchService {
         return BASE_URL + tenantKey + inputPath;
     }
 
-    public UserMatch matchUsers(String tenantKey) {
+    public List<EndUser> findUsersFromTenants(String tenantKey) {
         List<EndUser> chatResponse = billoApiRestTemplateBean.exchange(
                 createSlug(tenantKey, "/user"),
                 HttpMethod.GET,
@@ -42,8 +45,33 @@ public class UserMatchService {
                 new ParameterizedTypeReference<List<EndUser>>() {
                 }).getBody();
 
-        UserMatch userMatch = new UserMatch(chatResponse);
-        return userMatch;
+        return chatResponse;
+    }
+
+    public UserMatch matchUsers(String tenantKey, UserMatch listOfEndUsers) {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+
+
+        HttpEntity<UserMatch> entity = new HttpEntity<>(listOfEndUsers, headers);
+
+        System.out.println("--------------  här kommer entity ------------");
+        System.out.println(entity);
+        System.out.println("--------------  ------------------ ------------");
+
+        // Skicka requesten
+        UserMatch response = billoApiRestTemplateBean.exchange(
+                createSlug(tenantKey, "/usermatch"),
+                HttpMethod.POST,
+                entity,
+                new ParameterizedTypeReference<UserMatch>() {
+                }).getBody();
+
+        System.out.println("--------------  här kommer response ------------");
+        System.out.println(response);
+        System.out.println("--------------  ------------------ ------------");
+        return response;
     }
 
     public ContentUser sendContentToUser(String tenantKey, ContentUser contentUser) {
@@ -111,7 +139,6 @@ public class UserMatchService {
         return response.getBody();
     }
 
-
     public List<List<TenantKey>> listTenants(String orgnr) {
 
         if (orgnr != null && !orgnr.isEmpty()) {
@@ -122,13 +149,13 @@ public class UserMatchService {
                 HttpMethod.GET,
                 null,
 
-                new ParameterizedTypeReference<List<List<TenantKey>>>() {}
-        );
-                
+                new ParameterizedTypeReference<List<List<TenantKey>>>() {
+                });
+
         List<List<TenantKey>> tenants = response.getBody();
- 
 
         System.out.println(tenants);
         return tenants;
     }
+
 }
