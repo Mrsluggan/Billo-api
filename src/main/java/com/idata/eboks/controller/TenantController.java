@@ -40,8 +40,8 @@ public class TenantController {
     }
 
     // Ändrar namn på tenant
-    @GetMapping("{tenantKey}/name")
-    public ResponseEntity<Tenant> updateTenantName(@PathVariable String tenantKey) {
-        return ResponseEntity.ok(tenantService.updateTenantName(tenantKey, "Bosse"));
+    @PutMapping("{tenantKey}/name")
+    public ResponseEntity<Tenant> updateTenantName(@PathVariable String tenantKey, @RequestBody String newName) {
+        return ResponseEntity.ok(tenantService.updateTenantName(tenantKey, newName));
     }
 }
