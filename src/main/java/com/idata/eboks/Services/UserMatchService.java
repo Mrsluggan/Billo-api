@@ -49,18 +49,9 @@ public class UserMatchService {
     }
 
     public UserMatch matchUsers(String tenantKey, UserMatch listOfEndUsers) {
-
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
-
         HttpEntity<UserMatch> entity = new HttpEntity<>(listOfEndUsers, headers);
-
-        System.out.println("--------------  här kommer entity ------------");
-        System.out.println(entity);
-        System.out.println("--------------  ------------------ ------------");
-
-        // Skicka requesten
         UserMatch response = billoApiRestTemplateBean.exchange(
                 createSlug(tenantKey, "/usermatch"),
                 HttpMethod.POST,
@@ -68,9 +59,6 @@ public class UserMatchService {
                 new ParameterizedTypeReference<UserMatch>() {
                 }).getBody();
 
-        System.out.println("--------------  här kommer response ------------");
-        System.out.println(response);
-        System.out.println("--------------  ------------------ ------------");
         return response;
     }
 

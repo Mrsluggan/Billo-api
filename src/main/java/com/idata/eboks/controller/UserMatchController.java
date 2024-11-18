@@ -40,9 +40,7 @@ public class UserMatchController {
     // Kollar om mottagare kan få meddelande från tenant
     @PostMapping("/{tenantKey}/usermatch")
     public ResponseEntity<UserMatch> userMatch(@PathVariable String tenantKey, @RequestBody UserMatch userMatch) {
-        System.out.println("--------------  här kommer listan ------------");
-        System.out.println(userMatch);
-        System.out.println("--------------  ------------------ ------------");
+
         return ResponseEntity.ok(userMatchService.matchUsers(tenantKey, userMatch));
     }
 
@@ -50,9 +48,7 @@ public class UserMatchController {
     public ResponseEntity<ContentUser> sendcontent(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
 
         System.out.println("--------------  här kommer Meddelandet ------------");
-
         System.out.println(contentUser);
-
         System.out.println("--------------  ------------------ ------------");
 
         return ResponseEntity.ok(userMatchService.sendContentToUser(tenantKey, contentUser));

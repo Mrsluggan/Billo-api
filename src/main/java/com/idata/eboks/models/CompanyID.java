@@ -10,4 +10,22 @@ import lombok.NoArgsConstructor;
 public class CompanyID {
     private String name; // Required
     private String orgnr; // Required
+
+  
+    public String getOrgnr() {
+        return orgnr;
+    }
+
+    public void setOrgnr(String orgnr) {
+        this.orgnr = orgnr;
+    }
+
+    public String getCompanyName() {
+        return name;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.name = companyName;
+    }
+
 }
