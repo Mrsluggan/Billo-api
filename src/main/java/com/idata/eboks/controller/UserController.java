@@ -18,7 +18,7 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<UserMatch> userMatch(@PathVariable String tenantKey) {
-        return ResponseEntity.ok(userService.matchUsers(tenantKey));
+    public ResponseEntity<UserMatch> userMatch(@PathVariable String tenantKey, @RequestBody UserMatch userMatch) {
+        return ResponseEntity.ok(userService.matchUsers(tenantKey,userMatch));
     }
 }
