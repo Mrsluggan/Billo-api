@@ -2,6 +2,9 @@ package com.idata.eboks.Services;
 
 import com.idata.eboks.models.EndUser;
 import com.idata.eboks.models.UserMatch;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
@@ -30,5 +33,16 @@ public class UserService extends BaseService {
                 }).getBody();
 
         return response;
+    }
+
+        public List<EndUser> findUsersFromTenants(String tenantKey) {
+        List<EndUser> chatResponse = billoApiRestTemplateBean.exchange(
+                createSlug(tenantKey, "/user"),
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<List<EndUser>>() {
+                }).getBody();
+
+        return chatResponse;
     }
 }

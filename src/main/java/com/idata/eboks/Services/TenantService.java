@@ -52,8 +52,7 @@ public class TenantService extends BaseService {
     public Tenant updateTenantName(String tenantKey, String newName) {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        String requestBody = String.format("{\"name\": \"%s\"}", newName);
-        HttpEntity<String> entity = new HttpEntity<>(requestBody, headers);
+        HttpEntity<String> entity = new HttpEntity<>(newName, headers);
 
         return billoApiRestTemplateBean.exchange(
                 createSlug(tenantKey, "/name"),
