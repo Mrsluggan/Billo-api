@@ -20,45 +20,59 @@ public class TenantService extends BaseService {
     @Autowired
     private RestTemplate billoApiRestTemplateBean;
 
-
     public Tenant createTenant(Tenant tenant) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Tenant> request = new HttpEntity<>(tenant, headers);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Tenant> request = new HttpEntity<>(tenant, headers);
 
-        ResponseEntity<Tenant> response = billoApiRestTemplateBean.postForEntity(
-                getUrl(),
-                request,
-                Tenant.class);
+            ResponseEntity<Tenant> response = billoApiRestTemplateBean.postForEntity(
+                    getUrl(),
+                    request,
+                    Tenant.class);
 
-        return response.getBody();
+            return response.getBody();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Error creating a new tenant", e);
+        }
+
     }
 
     public List<List<TenantKey>> listTenants(String orgnr) {
-        String requestUrl = getUrl();
-        if (orgnr != null && !orgnr.isEmpty()) {
-            requestUrl += "?orgnr=" + orgnr;
-        }
-        ResponseEntity<List<List<TenantKey>>> response = billoApiRestTemplateBean.exchange(
-                requestUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<List<List<TenantKey>>>() {}
-        );
+        try {
+            String requestUrl = getUrl();
+            if (orgnr != null && !orgnr.isEmpty()) {
+                requestUrl += "?orgnr=" + orgnr;
+            }
+            ResponseEntity<List<List<TenantKey>>> response = billoApiRestTemplateBean.exchange(
+                    requestUrl,
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<List<List<TenantKey>>>() {
+                    });
 
-        return response.getBody();
+            return response.getBody();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Error processing list of tenants", e);
+        }
     }
 
     public Tenant updateTenantName(String tenantKey, String newName) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> entity = new HttpEntity<>(newName, headers);
-
-        return billoApiRestTemplateBean.exchange(
-                createSlug(tenantKey, "/name"),
-                HttpMethod.PUT,
-                entity,
-                new ParameterizedTypeReference<Tenant>() {
-                }).getBody();
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<String> entity = new HttpEntity<>(newName, headers);
+            return billoApiRestTemplateBean.exchange(
+                    createSlug(tenantKey, "/name"),
+                    HttpMethod.PUT,
+                    entity,
+                    new ParameterizedTypeReference<Tenant>() {
+                    }).getBody();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Error processing tenant update", e);
+        }
     }
 }
