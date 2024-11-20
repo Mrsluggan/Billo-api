@@ -15,6 +15,6 @@ public class RequestAccess {
     private String clientId;
     private String clientName; // Read-only
     private String tenantName; // Read-only
-    private String tenantKey; // Read-only
+    private TenantKey tenantKey; // Read-only
 
 }
