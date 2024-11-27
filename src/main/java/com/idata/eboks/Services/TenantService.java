@@ -75,4 +75,19 @@ public class TenantService extends BaseService {
             throw new RuntimeException("Error processing tenant update", e);
         }
     }
+
+    public Tenant getTenant(String tenantKey) {
+        try {
+
+            return billoApiRestTemplateBean.exchange(
+                    createSlug(tenantKey, ""),
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<Tenant>() {
+                    }).getBody();
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            throw new RuntimeException("Error processing tenant update", e);
+        }
+    }
 }

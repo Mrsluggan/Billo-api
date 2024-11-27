@@ -22,7 +22,7 @@ public class BilloApiRestTemplate {
         restTemplate.getInterceptors().add((request, body, execution) -> {
             String token = billoAuth.getAccessToken();
             if (token != null) {
-
+                System.out.println(token);
                 request.getHeaders().add("Authorization", "Bearer " + token);
             } else {
                 System.out.println("API key is null, unable to add authorization header");
