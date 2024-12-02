@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompanyID {
-    private String name; // Required
+    private String companyName; // Required
     private String orgnr; // Required
 
   
@@ -21,11 +21,11 @@ public class CompanyID {
     }
 
     public String getCompanyName() {
-        return name;
+        return companyName;
     }
 
     public void setCompanyName(String companyName) {
-        this.name = companyName;
+        this.companyName = companyName;
     }
 
 }
