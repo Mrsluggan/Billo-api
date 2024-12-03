@@ -1,4 +1,5 @@
 package com.idata.eboks.models;
+//
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,5 +17,13 @@ public class RequestAccess {
     private String clientName; // Read-only
     private String tenantName; // Read-only
     private TenantKey tenantKey; // Read-only
+    private String vatNumber;
 
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
+    }
+
+    public String getVatNumber() {
+        return vatNumber;
+    }
 }
