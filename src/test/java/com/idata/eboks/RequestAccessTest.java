@@ -44,12 +44,12 @@ public class RequestAccessTest {
         RequestAccess mockRequestAccess = new RequestAccess();
         mockRequestAccess.setVatNumber(vatNumber);
         mockRequestAccess.setStatus("PENDING");
-        mockRequestAccess.setTenantName("TestTenant");
+        mockRequestAccess.setTenant_name("TestTenant");
         when(requestAccessService.requestAccess(vatNumber)).thenReturn(mockRequestAccess);
         RequestAccess result = requestAccessController.getRequestAccess(tenantKey, vatNumber);
         assertEquals(vatNumber, result.getVatNumber());
         assertEquals("PENDING", result.getStatus());
-        assertEquals("TestTenant", result.getTenantName());
+        assertEquals("TestTenant", result.getTenant_name());
     }
 }
 
