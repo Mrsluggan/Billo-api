@@ -2,6 +2,7 @@ package com.idata.eboks.controller;
 
 import com.idata.eboks.Services.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,7 +36,7 @@ public class ContentController extends BaseService {
         try {
             ContentUser response = contentService.sendContentToUser(tenantKey, contentUser);
             logger.info("Content successfully sent for tenantKey: {}", tenantKey);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             logger.error("Error processing request for tenantKey: {}", tenantKey, e);
             return ResponseEntity.status(500).build();

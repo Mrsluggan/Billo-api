@@ -23,26 +23,28 @@ public class ContentService extends BaseService {
 
 
     public ContentUser sendContentToUser(String tenantKey, ContentUser contentUser) {
-        logger.info("Here comes a new letter: " + tenantKey , contentUser);
+        logger.info("Here comes a new letter: " + tenantKey, contentUser);
+
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<ContentUser> entity = new HttpEntity<>(contentUser, headers);
-
-            return billoApiRestTemplateBean.exchange(
+            ResponseEntity<ContentUser> response = billoApiRestTemplateBean.exchange(
                     createSlug(tenantKey, "/content"),
                     HttpMethod.POST,
                     entity,
-                    new ParameterizedTypeReference<ContentUser>() {
-                    }).getBody();
+                    new ParameterizedTypeReference<ContentUser>() {}
+            );
 
-        } catch (HttpClientErrorException e) {
-            logger.error("Error while making request:  " +e.getResponseBodyAsString());
+            logger.info("Response Status: {}", response.getStatusCode());
+            logger.info("Response Headers: {}", response.getHeaders());
+            logger.info("Response Body: {}", response.getBody());
 
-            throw new AppException("Error while making request: ", HttpStatus.BAD_REQUEST);
+            return response.getBody();
         } catch (Exception e) {
-            logger.error("Error: " + e.getMessage() , e);
-            throw new RuntimeException("Error processing contentUser", e);
+            logger.error("Error occurred while sending content to user", e);
+            throw e;
         }
     }
+
 }
