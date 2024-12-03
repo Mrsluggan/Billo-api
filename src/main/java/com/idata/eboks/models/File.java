@@ -28,6 +28,8 @@ public class File {
     })
     private ResponsivePart responsive_part;
 
+
+
     @Data
     @Embeddable
     @NoArgsConstructor

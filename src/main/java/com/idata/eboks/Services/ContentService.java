@@ -1,12 +1,13 @@
 package com.idata.eboks.Services;
 
+import com.idata.eboks.configs.exceptions.AppException;
+import com.idata.eboks.controller.ContentController;
 import com.idata.eboks.models.ContentUser;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.MediaType;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -14,10 +15,15 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class ContentService extends BaseService {
 
-    @Autowired
-    private RestTemplate billoApiRestTemplateBean;
+    private final RestTemplate billoApiRestTemplateBean;
+
+    public ContentService(RestTemplate billoApiRestTemplateBean) {
+        this.billoApiRestTemplateBean = billoApiRestTemplateBean;
+    }
+
 
     public ContentUser sendContentToUser(String tenantKey, ContentUser contentUser) {
+        logger.info("Here comes a new letter: " + tenantKey , contentUser);
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -31,10 +37,11 @@ public class ContentService extends BaseService {
                     }).getBody();
 
         } catch (HttpClientErrorException e) {
-            System.out.println("Error response: " + e.getResponseBodyAsString());
-            throw e;
+            logger.error("Error while making request:  " +e.getResponseBodyAsString());
+
+            throw new AppException("Error while making request: ", HttpStatus.BAD_REQUEST);
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            logger.error("Error: " + e.getMessage() , e);
             throw new RuntimeException("Error processing contentUser", e);
         }
     }

@@ -9,4 +9,5 @@ import lombok.Data;
 @Builder
 public class ErrorDto {
     private String message;
+
 }
