@@ -29,12 +29,6 @@ public class RequestAccessController {
         return requestAccessService.requestAccess(vatNumber);
     }
 
-    @GetMapping("/check")
-    public ResponseEntity<String> checkSomething(@RequestParam String code) {
-        if ("julglädje".equals(code)) {
-            return ResponseEntity.ok("🎄 Ho Ho Ho!Glad jul önskar praktikant teamet");
-        }
-        return ResponseEntity.ok("Detta är inget speciellt.");
-    }
+ 
 
 }
