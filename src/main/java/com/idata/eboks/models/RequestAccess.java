@@ -12,16 +12,9 @@ public class RequestAccess {
     private String created_at; // Read-only
     private String created_by; // Read-only
     private String status; // Read-only
-<<<<<<< Updated upstream
-    private String clientId;
-    private String clientName; // Read-only
-    private String tenantName; // Read-only
     private String tenantKey; // Read-only
-=======
     private String client_id;
     private String client_name; // Read-only
     private String tenant_name; // Read-only
-    private TenantKey tenantKey; // Read-only
->>>>>>> Stashed changes
 
 }

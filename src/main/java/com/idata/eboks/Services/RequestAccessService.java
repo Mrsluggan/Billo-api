@@ -22,9 +22,5 @@ public class RequestAccessService {
         return restTemplate.postForObject(url, requestBody, RequestAccess.class);
     }
 
-    public RequestAccess checkRequestStatus(String requestKey) {
-        String url = BASE_URL + "request_access/" + requestKey;
 
-        return restTemplate.getForObject(url, RequestAccess.class);
-    }
 }

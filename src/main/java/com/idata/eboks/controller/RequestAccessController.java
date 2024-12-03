@@ -16,18 +16,15 @@ public class RequestAccessController {
         this.requestAccessService = requestAccessService;
     }
 
-    @GetMapping("/request-access")
-    public RequestAccess getRequestAccess(@RequestParam String requestKey) {
-        System.out.println("nu kom det en get");
-        System.out.println(requestKey);
-        return requestAccessService.checkRequestStatus(requestKey);
+    @GetMapping("/{tenantKey}/request-access")
+    public RequestAccess getRequestAccess(@PathVariable String tenantKey, @RequestParam String vatNumber) {
+        return requestAccessService.requestAccess(vatNumber);
     }
 
-    @PostMapping("/request-access")
-    public RequestAccess postRequestAccess(@RequestBody Map<String, String> requestBody) {
-        String vatNumber = requestBody.get("vat_number");
-        System.out.println("nu kom det en post");
-        System.out.println(vatNumber);
+    @PostMapping("/{tenantKey}/request-access")
+    public RequestAccess postRequestAccess(@PathVariable String tenantKey,
+            @RequestBody Map<String, String> requestBody) {
+        String vatNumber = requestBody.get("vatNumber");
         return requestAccessService.requestAccess(vatNumber);
     }
 }
