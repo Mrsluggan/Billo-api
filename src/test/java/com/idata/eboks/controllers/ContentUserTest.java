@@ -51,7 +51,7 @@ public class ContentUserTest {
     @Test
     void testSendContent() {
 
-        contentController.sendcontentToUser("test",testContentUser);
+        contentController.sendContentToUser("test",testContentUser);
 
     }
 
