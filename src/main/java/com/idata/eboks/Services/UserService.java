@@ -22,6 +22,7 @@ public class UserService extends BaseService {
 
     public UserMatch matchUsers(String tenantKey, UserMatch listOfEndUsers) {
         try {
+            System.out.println("Beginning user match operation: ");
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
             HttpEntity<UserMatch> entity = new HttpEntity<>(listOfEndUsers, headers);
@@ -31,6 +32,7 @@ public class UserService extends BaseService {
                     entity,
                     new ParameterizedTypeReference<UserMatch>() {
                     }).getBody();
+            System.out.println("Done with user match operation: ");
 
             return response;
         } catch (Exception e) {
@@ -41,12 +43,14 @@ public class UserService extends BaseService {
 
     public List<EndUser> findUsersFromTenants(String tenantKey) {
         try {
+            System.out.println("Beginning find users operation: ");
             List<EndUser> chatResponse = billoApiRestTemplateBean.exchange(
                     createSlug(tenantKey, "/user"),
                     HttpMethod.GET,
                     null,
                     new ParameterizedTypeReference<List<EndUser>>() {
                     }).getBody();
+            System.out.println("Done with find users operation: ");
 
             return chatResponse;
         } catch (Exception e) {

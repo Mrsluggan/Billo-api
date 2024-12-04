@@ -38,7 +38,10 @@ public class TenantController {
         List<List<TenantKey>> tenants = tenantService.listTenants(orgnr); 
         return ResponseEntity.ok(tenants);
     }
-
+    @GetMapping("{tenantKey}")
+    public ResponseEntity<Tenant> getTenant(@PathVariable String tenantKey) {
+        return ResponseEntity.ok(tenantService.getTenant(tenantKey));
+    }
     // Ändrar namn på tenant
     @PutMapping("{tenantKey}/name")
     public ResponseEntity<Tenant> updateTenantName(@PathVariable String tenantKey, @RequestBody String newName) {

@@ -2,6 +2,7 @@ package com.idata.eboks.controller;
 
 import java.util.Map;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.idata.eboks.Services.RequestAccessService;
 import com.idata.eboks.models.RequestAccess;
@@ -27,4 +28,7 @@ public class RequestAccessController {
         String vatNumber = requestBody.get("vatNumber");
         return requestAccessService.requestAccess(vatNumber);
     }
+
+ 
+
 }

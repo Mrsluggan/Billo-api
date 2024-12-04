@@ -1,6 +1,8 @@
 package com.idata.eboks.controller;
 
+import com.idata.eboks.Services.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 @RequestMapping("/v1/tenant")
-public class ContentController {
+public class ContentController extends BaseService {
 
     private final ContentService contentService;
 
@@ -24,17 +28,20 @@ public class ContentController {
         this.contentService = contentService;
     }
 
-    // Skickar in en ny innehållsförändring till Billo
     @PostMapping("/{tenantKey}/content")
-    public ResponseEntity<ContentUser> sendcontentToUser(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
+    public ResponseEntity<ContentUser> sendContentToUser(@PathVariable String tenantKey, @RequestBody ContentUser contentUser) {
 
-        System.out.println("--------------  här kommer Meddelandet ------------");
-    
-        System.out.println(contentUser);
-        
-        System.out.println("--------------  ------------------ ------------");
+        logger.info("Received request to send content for tenantKey: {}", tenantKey);
 
-        return ResponseEntity.ok(contentService.sendContentToUser(tenantKey, contentUser));
+        try {
+            ContentUser response = contentService.sendContentToUser(tenantKey, contentUser);
+            logger.info("Content successfully sent for tenantKey: {}", tenantKey);
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        } catch (Exception e) {
+            logger.error("Error processing request for tenantKey: {}", tenantKey, e);
+            return ResponseEntity.status(500).build();
+        }
+
     }
     
 }
