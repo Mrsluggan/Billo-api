@@ -21,4 +21,6 @@ public class RequestAccessService {
         var requestBody = Map.of("vat_number", vatNumber);
         return restTemplate.postForObject(url, requestBody, RequestAccess.class);
     }
+
+
 }
