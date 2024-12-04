@@ -23,8 +23,10 @@ public class ContentService extends BaseService {
 
 
     public ContentUser sendContentToUser(String tenantKey, ContentUser contentUser) {
-        logger.info("Here comes a new letter: " + tenantKey, contentUser);
-
+        logger.info("Here comes a new letter: {}", contentUser);
+        if (contentUser == null) {
+            return null;
+        }
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
