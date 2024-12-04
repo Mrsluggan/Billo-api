@@ -33,13 +33,18 @@ public class ContentController extends BaseService {
 
         logger.info("Received request to send content for tenantKey: {}", tenantKey);
 
+        // todo, gör funktion
+        if (contentUser == null || contentUser.getSsn() == null || contentUser.getSubject() == null || contentUser.getFiles() == null || contentUser.getFiles().isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         try {
             ContentUser response = contentService.sendContentToUser(tenantKey, contentUser);
             logger.info("Content successfully sent for tenantKey: {}", tenantKey);
             return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } catch (Exception e) {
             logger.error("Error processing request for tenantKey: {}", tenantKey, e);
-            return ResponseEntity.status(500).build();
+            throw new RuntimeException("Error processing request", e);
         }
 
     }
